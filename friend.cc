@@ -43,8 +43,8 @@ void Friend::input(istream& ins){
     ins >> bday;
 }
 void Friend::output(ostream& outs)const{
-    outs << name;
-    outs << bday;
+    outs << name << endl;
+    outs << bday << endl;
 }
 
 istream& operator >>(istream& ins,Friend& f){

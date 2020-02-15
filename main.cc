@@ -50,65 +50,65 @@ int main(){
 
 	while(choice != 9){
 	    choice = menu();
-	    switch(choice){
-		case 1:	cin>>myfriend;
-		    myfb.start();
-			myfb.insert(myfriend);
-			break;
-		case 2: myfb.show_all(cout);
-			break;
-		case 3: {myfb.start();
-			choice2 = 0;
-			while(myfb.is_item()&& choice2 <= 5){
-			    cout<<myfb.current();
-			    choice2 = menu2();
-			    if(choice2 == 1)
-				myfb.remove_current();
-			    else if(choice2 == 2){
-				if(!cutout)
-				cin>>myfriend;
-				if(myfb.is_friend(myfriend)) 
-				cout<<"Already in list.\n";
-				else
+			switch(choice){
+			case 1:	cin>>myfriend;
+				myfb.start();
 				myfb.insert(myfriend);
-				cutout = false;
-			    }
-			    else if(choice2 == 3){
-				if(!cutout)
-				cin >> myfriend;
-                               if(myfb.is_friend(myfriend))
-                                cout<<"Already in list.\n";
-                                else
-				myfb.attach(myfriend);
-				cutout = false;
-			    }
-			    else if (choice2 == 4){
-				myfriend = myfb.current();
-				myfb.remove_current();
-				cutout = true;
+				break;
+			case 2: myfb.show_all(cout);
+				break;
+			case 3: {myfb.start();
+				choice2 = 0;
+				while(myfb.is_item()&& choice2 <= 5){
+					cout<<myfb.current();
+					choice2 = menu2();
+					if(choice2 == 1)
+					myfb.remove_current();
+					else if(choice2 == 2){
+					if(!cutout)
+					cin>>myfriend;
+					if(myfb.is_friend(myfriend)) 
+					cout<<"Already in list.\n";
+					else
+					myfb.insert(myfriend);
+					cutout = false;
+					}
+					else if(choice2 == 3){
+					if(!cutout)
+					cin >> myfriend;
+								if(myfb.is_friend(myfriend))
+									cout<<"Already in list.\n";
+									else
+					myfb.attach(myfriend);
+					cutout = false;
+					}
+					else if (choice2 == 4){
+					myfriend = myfb.current();
+					myfb.remove_current();
+					cutout = true;
+					}
+					else if(choice2 == 5){
+					myfb.advance();
+					}
+					else
+					cout<<"Going back to main menu.\n";
 				}
-			    else if(choice2 == 5){
-				myfb.advance();
-			    }
-			    else
-				cout<<"Going back to main menu.\n";
-			}
-			break;
-			}
-		case 4: myfb.bday_sort();
-			break;
-		case 5:{
-			cout<<"Enter the name of your friend:\n";
-			if(cin.peek() == '\n') cin.ignore();
-			getline(cin, friendname);
-			myfriend = myfb.find_friend(friendname);
-			cout<<myfriend<<endl;
-			break;
-			}
-		case 6:	original.show_all(cout);
-			break;
-		default: break;
-		} // bottom of the switch
+				break;
+				}
+			case 4: myfb.bday_sort();
+				break;
+			case 5:{
+				cout<<"Enter the name of your friend:\n";
+				if(cin.peek() == '\n') cin.ignore();
+				getline(cin, friendname);
+				myfriend = myfb.find_friend(friendname);
+				cout<<myfriend<<endl;
+				break;
+				}
+			case 6:	original.show_all(cout);
+				break;
+			default: break;
+			} // bottom of the switch
 	} // bottom of the while
 	fout.open(filename.c_str());
         if(!fout.fail())

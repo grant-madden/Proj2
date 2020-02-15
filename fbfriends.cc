@@ -14,45 +14,79 @@ FBFriends::FBFriends(){
 
 //The functions known as the Big 3
 FBFriends::~FBFriends(){
-
+    delete [] data;
 }
 FBFriends::FBFriends(const FBFriends& other){
-    
+    used = other.used;
+    capacity = other.capacity;
+    current_index = other.current_index;
+    data = new Friend[other.capacity];
+    copy(other.data, other.data + used, data);
 }
 void FBFriends::operator = (const FBFriends& other){
+    Friend *tmp;
+    if (this == &other){
+        return;
+    }
+    if (capacity < other.capacity){
+        tmp = new Friend[other.capacity];
+        delete [] data;
+        data = tmp;
+        capacity = other.capacity;
+    }
+    used = other.used;
+    current_index = other.current_index;
+    copy(other.data, other.data + used, data);
+    
     return;
 }
 
 // Functions for the internal iterator
 void FBFriends::start(){
+    current_index = 0;
     return;
 }
 void FBFriends::advance(){
+    current_index++;
+    cout << "CurIN: " << current_index<<endl;
     return;
 }
 bool FBFriends::is_item(){
-    bool tmp;
-    return tmp;
+    if (current_index < used){
+        return true;
+    }
+    return false;
 }
 Friend FBFriends::current(){
-    Friend tmp;
-    return tmp;
+    return data[current_index];
 }
 void FBFriends::remove_current(){
-    return;
+    Friend tmp;
+    for (int i = current_index; i < used - 1; i++){
+        data[i] = data[i + 1];
+    }
+    data[used] = tmp;
+    used--;
 }
 void FBFriends::insert(const Friend& f){
     Friend tmp;
     if (used == capacity){
         resize();
     }
-    if (used < capacity){
+    if (current_index == 0){
         for (int i = used - 1; i >= 0; i--){
             data[i + 1] = data[i];
         }
         data[0] = f;
         used++;
-    }   
+    }
+    else {
+        for (int i = current_index; i < used - 1; i++){
+        data[i+1] = data[i];
+    }  
+        data[current_index] = f;
+        used++;
+    }
     
 }
 void FBFriends::attach(const Friend& f){
@@ -60,10 +94,12 @@ void FBFriends::attach(const Friend& f){
     if (used == capacity){
         resize();
     }
-    if (used < capacity){
-        data[used] = f;
-        used++;
-    }   
+    for (int i = current_index + 1; i < used - 1; i++){
+        data[i + 1] = data[i];
+    }  
+    data[current_index + 1] = f;
+    used++;
+    
     return;
 }
 void FBFriends::show_all(ostream& outs)const{
@@ -96,11 +132,21 @@ int FBFriends::indexOfSmallest( Friend data[], int startIndex, int endIndex){
 }
 Friend FBFriends::find_friend(const string& name)const{
     Friend tmp;
+    for (int i = 0; i < used; i++){
+        if (data[i].get_name() == name){
+            return data[i];
+        }
+    }
+    tmp.set_name("No friend found under that name (Ignore this Birthday).");
     return tmp;
 }
 bool FBFriends::is_friend(const Friend& f) const{
-    bool tmp;
-    return tmp;
+    for (int i = 0; i < used; i++){
+        if (data[i] == f){
+            return true;
+        }
+    }
+    return false;
 }
 void FBFriends::load(istream& ins){
     int counter = 0;
