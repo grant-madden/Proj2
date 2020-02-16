@@ -1,8 +1,12 @@
-B
-2/2/2
-A
+Ja Morant
 1/1/1
-C
+Giannis Antetokounmpo
+2/2/2
+Lebron James
 3/3/3
-D
+Luka Doncic
 4/4/4
+James Harden
+5/5/5
+Russel Westbrook
+6/6/6

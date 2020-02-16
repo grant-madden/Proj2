@@ -1,3 +1,8 @@
+/*
+	Grant Madden
+	CS 2401
+	2/16/2020
+*/
 #include "friend.h"
 #include <iostream>
 #include <string>
